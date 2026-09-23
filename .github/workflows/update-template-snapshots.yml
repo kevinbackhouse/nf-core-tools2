@@ -165,7 +165,12 @@ jobs:
           token: ${{ secrets.nf_core_bot_auth_token }}
 
       - name: Checkout Pull Request
-        run: gh pr checkout ${{ github.event.issue.number }}
+        run: |
+          gh pr checkout ${{ github.event.issue.number }}
+
+          # Verify that the commit sha matches what we expect, just in
+          # case a new commit was pushed after the workflow was triggered.
+          [[ $(git log -1 --format=%H) == ${{ needs.prepare-matrix.outputs.sha }} ]] || exit 1
         env:
           GITHUB_TOKEN: ${{ secrets.nf_core_bot_auth_token }}
 

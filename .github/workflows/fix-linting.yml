@@ -33,13 +33,14 @@ jobs:
           token: ${{ secrets.nf_core_bot_auth_token }}
 
       # Action runs on the issue comment, so we don't get the PR by default
-      # Use the gh cli to check out the PR. But also verify that the commit sha
-      # matches what we expect, just in case a new commit was pushed after the
-      # workflow was triggered.
+      # Use the gh cli to check out the PR.
       - name: Checkout Pull Request
         if: steps.branch-deploy.outputs.continue == 'true'
         run: |
           gh pr checkout ${{ github.event.issue.number }}
+
+          # Verify that the commit sha matches what we expect, just in
+          # case a new commit was pushed after the workflow was triggered.
           [[ $(git log -1 --format=%H) == ${{ steps.branch-deploy.outputs.sha }} ]] || exit 1
         env:
           GITHUB_TOKEN: ${{ secrets.nf_core_bot_auth_token }}
