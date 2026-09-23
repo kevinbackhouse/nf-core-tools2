@@ -1,4 +1,3 @@
-
 <h1>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nf-core/tools/main/docs/images/nfcore-tools_logo_dark.png">
