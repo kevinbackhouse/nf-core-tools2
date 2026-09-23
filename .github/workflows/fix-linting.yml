@@ -26,6 +26,12 @@ jobs:
           stable_branch: "dev"
           update_branch: "disabled" # do not require the branch to be up-to-date
 
+      # Use the @nf-core-bot token to check out so we can push later
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        if: steps.branch-deploy.outputs.continue == 'true'
+        with:
+          token: ${{ secrets.nf_core_bot_auth_token }}
+
       # Action runs on the issue comment, so we don't get the PR by default
       # Use the gh cli to check out the PR. But also verify that the commit sha
       # matches what we expect, just in case a new commit was pushed after the
