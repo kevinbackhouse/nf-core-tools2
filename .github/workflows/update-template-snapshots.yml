@@ -57,13 +57,8 @@ jobs:
           - TEMPLATE: all
       fail-fast: false
     steps:
-      # Use the @nf-core-bot token to check out so we can push later
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-        with:
-          token: ${{ secrets.nf_core_bot_auth_token }}
-
       # Action runs on the issue comment, so we don't get the PR by default
-      # Use the gh cli to check out the PR
+      # The correct commit ID to use is needs.prepare-matrix.outputs.sha
       - name: Checkout Pull Request
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
