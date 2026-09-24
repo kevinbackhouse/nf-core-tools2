@@ -48,7 +48,7 @@ jobs:
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.nf_core_bot_auth_token }}
-          EXPECTED_SHA: ${{ needs.prepare-matrix.outputs.sha }}
+          EXPECTED_SHA: ${{ steps.branch-deploy.outputs.sha }}
 
       # Install and run prek
       - name: Run prek
