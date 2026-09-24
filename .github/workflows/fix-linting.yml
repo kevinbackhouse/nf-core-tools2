@@ -41,9 +41,13 @@ jobs:
 
           # Verify that the commit sha matches what we expect, just in
           # case a new commit was pushed after the workflow was triggered.
-          [[ $(git log -1 --format=%H) == ${{ steps.branch-deploy.outputs.sha }} ]] || exit 1
+          if [[ $(git log -1 --format=%H) != $EXPECTED_SHA ]]; then
+             echo "::error title=bad-commit-id::Expected: $EXPECTED_SHA Actual: $(git log -1 --format=%H)"
+             exit 1
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.nf_core_bot_auth_token }}
+          EXPECTED_SHA: ${{ needs.prepare-matrix.outputs.sha }}
 
       # Install and run prek
       - name: Run prek
