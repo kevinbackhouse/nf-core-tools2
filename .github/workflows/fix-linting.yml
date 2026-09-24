@@ -25,6 +25,7 @@ jobs:
           reaction: "eyes"
           stable_branch: "dev"
           update_branch: "disabled" # do not require the branch to be up-to-date
+          checks: "required" # don't proceed if any required checks failed
 
       # Use the @nf-core-bot token to check out so we can push later
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7

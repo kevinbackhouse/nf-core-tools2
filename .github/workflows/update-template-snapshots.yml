@@ -30,6 +30,7 @@ jobs:
           reaction: "eyes"
           stable_branch: "dev"
           update_branch: "disabled" # do not require the branch to be up-to-date
+          checks: "required" # don't proceed if any required checks failed
 
       - name: checkout
         if: steps.branch-deploy.outputs.continue == 'true'
